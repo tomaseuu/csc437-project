@@ -1,0 +1,14 @@
+:root {
+  --color-text: #07100c;
+  --color-background-page: #f9fdfc;
+  --color-background-surface: #ffffff;
+
+  --color-primary: #53b593;
+  --color-secondary: #98c7d3;
+  --color-accent: #7badc6;
+
+  --color-text-inverted: #f9fdfc;
+  --color-background-header: var(--color-primary);
+  --color-link: var(--color-accent);
+  --color-border: var(--color-secondary);
+}

@@ -95,6 +95,6 @@ svg.icon {
   display: inline;
   height: 2em;
   width: 2em;
-  vertical-align: middle;
+  vertical-align: top;
   fill: currentColor;
 }

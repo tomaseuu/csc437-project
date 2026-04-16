@@ -2,7 +2,8 @@ body {
   background-color: var(--color-background-page);
   color: var(--color-text);
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -27,6 +28,20 @@ h1,
 h2,
 h3 {
   color: var(--color-primary);
+  font-family: "Roboto Slab", Georgia, serif;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
 }
 
 header h1,
@@ -66,4 +81,20 @@ ul {
 
 li + li {
   margin-top: 0.5rem;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 700;
+}
+
+svg.icon {
+  display: inline;
+  height: 2em;
+  width: 2em;
+  vertical-align: middle;
+  fill: currentColor;
 }

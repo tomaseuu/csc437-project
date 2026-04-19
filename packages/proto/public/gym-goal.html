@@ -4,21 +4,38 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goal for Gym 5 Times Per Week</title>
+    <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/cards.css" />
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="gym-habit.html">Back to Habit</a>
+    <header class="site-header">
+      <div class="header-title">
+        <a class="app-name" href="index.html">Habit Challenges</a>
+        <div class="header-copy">
+          <p class="header-kicker">Goal</p>
+          <h1>Weekly Goal: Gym 5 Times</h1>
+          <p>A goal connected to the Gym 5 Times Per Week habit.</p>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Challenges</a>
+        <a href="gym-challenge.html">Gym</a>
+        <a href="mindfulness-challenge.html">Mindfulness</a>
       </nav>
-      <h1>Weekly Goal: Gym 5 Times</h1>
-      <p>A goal connected to the Gym 5 Times Per Week habit.</p>
+
+      <div class="user-profile" aria-label="Current user">
+        <span class="user-avatar" aria-hidden="true">T</span>
+        <span>Thomas</span>
+      </div>
     </header>
 
-    <main>
-      <article>
-        <section>
+    <main class="page-grid">
+      <article class="content-grid grid-span-12">
+        <section class="content-card grid-span-6">
           <h2>Goal Details</h2>
           <p><strong>Target:</strong> Complete 5 gym visits in one week</p>
           <p>
@@ -27,7 +44,7 @@
           <p><strong>Reward in challenge:</strong> Earn 1 point for the week</p>
         </section>
 
-        <section>
+        <section class="content-card grid-span-6">
           <h2>Related Habit</h2>
           <p>
             This goal belongs to the

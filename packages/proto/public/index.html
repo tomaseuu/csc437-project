@@ -10,23 +10,43 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&family=Roboto+Slab:wght@700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/cards.css" />
   </head>
   <body>
-    <header>
-      <h1>Habit Challenges</h1>
-      <p>
-        A simple collection of friend-based habit challenges where each person
-        tracks their own goal and competes on consistency!
-      </p>
+    <header class="site-header">
+      <div class="header-title">
+        <a class="app-name" href="index.html">Habit Challenges</a>
+        <div class="header-copy">
+          <p class="header-kicker">Dashboard</p>
+          <h1>Active Challenges</h1>
+          <p>
+            A simple collection of friend-based habit challenges where each
+            person tracks their own goal and competes on consistency!
+          </p>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html" aria-current="page">Challenges</a>
+        <a href="gym-challenge.html">Gym</a>
+        <a href="mindfulness-challenge.html">Mindfulness</a>
+      </nav>
+
+      <div class="user-profile" aria-label="Current user">
+        <span class="user-avatar" aria-hidden="true">T</span>
+        <span>Thomas</span>
+      </div>
     </header>
 
-    <main>
-      <section>
-        <h2>Active Challenges</h2>
-        <ul>
-          <li>
+    <main class="page-grid">
+      <section class="content-card grid-span-8">
+        <h2>Challenge List</h2>
+        <ul class="sequence-list">
+          <li class="sequence-item">
             <a href="gym-challenge.html">
               <svg class="icon">
                 <use href="/icons/challenges.svg#icon-dumbbell" />
@@ -34,7 +54,7 @@
               Gym Habit Challenge
             </a>
           </li>
-          <li>
+          <li class="sequence-item">
             <a href="mindfulness-challenge.html">
               <svg class="icon">
                 <use href="/icons/challenges.svg#icon-meditation" />
@@ -45,7 +65,7 @@
         </ul>
       </section>
 
-      <section>
+      <section class="content-card grid-span-4">
         <h2>About This Project</h2>
         <p>
           Users join challenges with friends, set personal habit goals, log

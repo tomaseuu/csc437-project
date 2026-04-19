@@ -4,21 +4,38 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gym Showdown Challenge</title>
+    <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/cards.css" />
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="index.html">Back to Challenges</a>
+    <header class="site-header">
+      <div class="header-title">
+        <a class="app-name" href="index.html">Habit Challenges</a>
+        <div class="header-copy">
+          <p class="header-kicker">Challenge</p>
+          <h1>Gym Showdown Challenge</h1>
+          <p>A 30-day habit challenge between two friends focused on gym goals.</p>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Challenges</a>
+        <a href="gym-challenge.html" aria-current="page">Gym</a>
+        <a href="mindfulness-challenge.html">Mindfulness</a>
       </nav>
-      <h1>Gym Showdown Challenge</h1>
-      <p>A 30-day habit challenge between two friends focused on gym goals.</p>
+
+      <div class="user-profile" aria-label="Current user">
+        <span class="user-avatar" aria-hidden="true">T</span>
+        <span>Thomas</span>
+      </div>
     </header>
 
-    <main>
-      <article>
-        <section>
+    <main class="page-grid">
+      <article class="content-grid grid-span-12">
+        <section class="content-card grid-span-4">
           <h2>Challenge Details</h2>
           <p><strong>Duration:</strong> 30 days</p>
           <p><strong>Status:</strong> Active</p>
@@ -27,18 +44,20 @@
           </p>
         </section>
 
-        <section>
+        <section class="content-card grid-span-4">
           <h2>Participants</h2>
-          <ul>
-            <li>
+          <ul class="sequence-list">
+            <li class="sequence-item">
               User A with the habit
               <a href="gym-habit.html">Gym 5 Times Per Week</a>
             </li>
-            <li>User B with a goal of going to the gym 3 times per week</li>
+            <li class="sequence-item">
+              User B with a goal of going to the gym 3 times per week
+            </li>
           </ul>
         </section>
 
-        <section>
+        <section class="content-card grid-span-4">
           <h2>How Scoring Works</h2>
           <p>
             Each participant logs activity during the week. If they meet their

@@ -4,28 +4,45 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gym 5 Times Per Week Habit</title>
+    <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/tokens.css" />
     <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/cards.css" />
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="gym-challenge.html">Back to Gym Challenge</a>
+    <header class="site-header">
+      <div class="header-title">
+        <a class="app-name" href="index.html">Habit Challenges</a>
+        <div class="header-copy">
+          <p class="header-kicker">Habit</p>
+          <h1>Gym 5 Times Per Week</h1>
+          <p>A habit instance for a participant in the Gym Challenge.</p>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Challenges</a>
+        <a href="gym-challenge.html">Gym</a>
+        <a href="mindfulness-challenge.html">Mindfulness</a>
       </nav>
-      <h1>Gym 5 Times Per Week</h1>
-      <p>A habit instance for a participant in the Gym Challenge.</p>
+
+      <div class="user-profile" aria-label="Current user">
+        <span class="user-avatar" aria-hidden="true">T</span>
+        <span>Thomas</span>
+      </div>
     </header>
 
-    <main>
-      <article>
-        <section>
+    <main class="page-grid">
+      <article class="content-grid grid-span-12">
+        <section class="content-card grid-span-4">
           <h2>Habit Details</h2>
           <p><strong>Habit name:</strong> Go to the gym</p>
           <p><strong>Frequency:</strong> 5 times per week</p>
           <p><strong>Tracking style:</strong> +1 per gym visit</p>
         </section>
 
-        <section>
+        <section class="content-card grid-span-4">
           <h2>Related Challenge</h2>
           <p>
             This habit belongs to the
@@ -33,7 +50,7 @@
           </p>
         </section>
 
-        <section>
+        <section class="content-card grid-span-4">
           <h2>Related Goal</h2>
           <p>
             This habit has the goal

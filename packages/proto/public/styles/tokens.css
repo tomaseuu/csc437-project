@@ -20,3 +20,16 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
 }
+
+body.dark-mode {
+  --color-background-page: black;
+  --color-text: white;
+  --color-background-surface: #111;
+  --color-primary: #53b593;
+  --color-secondary: #2f5f56;
+  --color-accent: #53b593;
+  --color-text-inverted: black;
+  --color-background-header: #53b593;
+  --color-link: #53b593;
+  --color-border: #2f5f56;
+}

@@ -18,6 +18,10 @@
   </head>
   <body>
     <header class="site-header">
+      <label onchange="handleDarkToggle(event)">
+        <input type="checkbox" autocomplete="off" id="darkToggle" />
+        Dark mode
+      </label>
       <div class="header-title">
         <a class="app-name" href="index.html">Habit Challenges</a>
         <div class="header-copy">
@@ -73,5 +77,22 @@
         </p>
       </section>
     </main>
+    <script>
+      function handleDarkToggle(event) {
+        event.stopPropagation();
+
+        const isChecked = event.target.checked;
+
+        document.body.dispatchEvent(
+          new CustomEvent("darkmode:toggle", {
+            detail: { checked: isChecked }
+          })
+        );
+      }
+
+      document.body.addEventListener("darkmode:toggle", (event) => {
+        document.body.classList.toggle("dark-mode", event.detail.checked);
+      });
+    </script>
   </body>
 </html>

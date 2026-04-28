@@ -1,0 +1,39 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - checkbox "Dark mode" [ref=e4]
+      - text: Dark mode
+    - generic [ref=e5]:
+      - link "Habit Challenges" [ref=e6] [cursor=pointer]:
+        - /url: index.html
+      - generic [ref=e7]:
+        - paragraph [ref=e8]: Dashboard
+        - heading "Active Challenges" [level=1] [ref=e9]
+        - paragraph [ref=e10]: A simple collection of friend-based habit challenges where each person tracks their own goal and competes on consistency!
+    - navigation "Primary navigation" [ref=e11]:
+      - link "Challenges" [ref=e12] [cursor=pointer]:
+        - /url: index.html
+      - link "Gym" [ref=e13] [cursor=pointer]:
+        - /url: gym-challenge.html
+      - link "Mindfulness" [ref=e14] [cursor=pointer]:
+        - /url: mindfulness-challenge.html
+    - generic "Current user" [ref=e15]:
+      - generic [ref=e16]: T
+      - generic [ref=e17]: Thomas
+  - main [ref=e18]:
+    - generic [ref=e19]:
+      - heading "Challenge List" [level=2] [ref=e20]
+      - list [ref=e21]:
+        - listitem [ref=e22]:
+          - link "Gym Habit Challenge" [ref=e23] [cursor=pointer]:
+            - /url: gym-challenge.html
+            - img [ref=e24]
+            - text: Gym Habit Challenge
+        - listitem [ref=e26]:
+          - link "Mindfulness Challenge" [ref=e27] [cursor=pointer]:
+            - /url: mindfulness-challenge.html
+            - img [ref=e28]
+            - text: Mindfulness Challenge
+    - generic [ref=e30]:
+      - heading "About This Project" [level=2] [ref=e31]
+      - paragraph [ref=e32]: Users join challenges with friends, set personal habit goals, log progress, and earn points for completing successful weeks.

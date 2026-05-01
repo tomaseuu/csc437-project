@@ -1,0 +1,46 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Habit Challenges" [ref=e4] [cursor=pointer]:
+        - /url: index.html
+      - generic [ref=e5]:
+        - paragraph [ref=e6]: Challenge
+        - heading "Gym Showdown Challenge" [level=1] [ref=e7]
+        - paragraph [ref=e8]: A 30-day habit challenge between two friends focused on gym goals.
+    - navigation "Primary navigation" [ref=e9]:
+      - link "Challenges" [ref=e10] [cursor=pointer]:
+        - /url: index.html
+      - link "Gym" [ref=e11] [cursor=pointer]:
+        - /url: gym-challenge.html
+      - link "Mindfulness" [ref=e12] [cursor=pointer]:
+        - /url: mindfulness-challenge.html
+    - generic "Current user" [ref=e13]:
+      - generic [ref=e14]: T
+      - generic [ref=e15]: Thomas
+  - main [ref=e16]:
+    - article [ref=e18]:
+      - generic [ref=e19]:
+        - heading "Challenge Details" [level=2] [ref=e20]
+        - paragraph [ref=e21]:
+          - strong [ref=e22]: "Duration:"
+          - generic: 30 days
+        - paragraph [ref=e23]:
+          - strong [ref=e24]: "Status:"
+          - generic: Active
+        - paragraph [ref=e25]:
+          - strong [ref=e26]:
+            - generic: "Reward: The loser buys the winner a PopMart figure."
+      - generic [ref=e27]:
+        - heading "Participants" [level=2] [ref=e28]
+        - list [ref=e29]:
+          - listitem [ref=e30]:
+            - generic [ref=e31]:
+              - text: User A with the habit
+              - link "Gym 5 Times Per Week" [ref=e32] [cursor=pointer]:
+                - /url: gym-habit.html
+          - listitem [ref=e33]:
+            - generic [ref=e34]: User B with a goal of going to the gym 3 times per week
+      - generic [ref=e35]:
+        - heading "How Scoring Works" [level=2] [ref=e36]
+        - paragraph [ref=e37]:
+          - generic: Each participant logs activity during the week. If they meet their personal weekly goal, they earn 1 point for that week.

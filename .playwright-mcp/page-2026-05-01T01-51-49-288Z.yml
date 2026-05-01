@@ -1,0 +1,43 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Habit Challenges" [ref=e4] [cursor=pointer]:
+        - /url: index.html
+      - generic [ref=e5]:
+        - paragraph [ref=e6]: Challenge
+        - heading "Mindfulness Duel Challenge" [level=1] [ref=e7]
+        - paragraph [ref=e8]: A weekly habit challenge where two friends compete using different self-improvement routines.
+    - navigation "Primary navigation" [ref=e9]:
+      - link "Challenges" [ref=e10] [cursor=pointer]:
+        - /url: index.html
+      - link "Gym" [ref=e11] [cursor=pointer]:
+        - /url: gym-challenge.html
+      - link "Mindfulness" [ref=e12] [cursor=pointer]:
+        - /url: mindfulness-challenge.html
+    - generic "Current user" [ref=e13]:
+      - generic [ref=e14]: T
+      - generic [ref=e15]: Thomas
+  - main [ref=e16]:
+    - article [ref=e18]:
+      - generic [ref=e19]:
+        - heading "Challenge Details" [level=2] [ref=e20]
+        - paragraph [ref=e21]:
+          - strong [ref=e22]: "Duration:"
+          - generic: 4 weeks
+        - paragraph [ref=e23]:
+          - strong [ref=e24]: "Status:"
+          - generic: Active
+        - paragraph [ref=e25]:
+          - strong [ref=e26]:
+            - generic: "Punishment: The loser gets pied by the winner."
+      - generic [ref=e27]:
+        - heading "Participants" [level=2] [ref=e28]
+        - list [ref=e29]:
+          - listitem [ref=e30]:
+            - generic [ref=e31]: User A with a goal of meditating daily
+          - listitem [ref=e32]:
+            - generic [ref=e33]: User B with a goal of journaling daily
+      - generic [ref=e34]:
+        - heading "How Scoring Works" [level=2] [ref=e35]
+        - paragraph [ref=e36]:
+          - generic: Both users log once per day. At the end of each week, they either pass or fail their goal for that week.

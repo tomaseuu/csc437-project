@@ -1,0 +1,46 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Habit Challenges" [ref=e4] [cursor=pointer]:
+        - /url: index.html
+      - generic [ref=e5]:
+        - paragraph [ref=e6]: Habit
+        - heading "Gym 5 Times Per Week" [level=1] [ref=e7]
+        - paragraph [ref=e8]: A habit instance for a participant in the Gym Challenge.
+    - navigation "Primary navigation" [ref=e9]:
+      - link "Challenges" [ref=e10] [cursor=pointer]:
+        - /url: index.html
+      - link "Gym" [ref=e11] [cursor=pointer]:
+        - /url: gym-challenge.html
+      - link "Mindfulness" [ref=e12] [cursor=pointer]:
+        - /url: mindfulness-challenge.html
+    - generic "Current user" [ref=e13]:
+      - generic [ref=e14]: T
+      - generic [ref=e15]: Thomas
+  - main [ref=e16]:
+    - article [ref=e17]:
+      - generic [ref=e18]:
+        - heading "Habit Details" [level=2] [ref=e19]
+        - paragraph [ref=e20]:
+          - strong [ref=e21]: "Habit name:"
+          - text: Go to the gym
+        - paragraph [ref=e22]:
+          - strong [ref=e23]: "Frequency:"
+          - text: 5 times per week
+        - paragraph [ref=e24]:
+          - strong [ref=e25]: "Tracking style:"
+          - text: +1 per gym visit
+      - generic [ref=e26]:
+        - heading "Related Challenge" [level=2] [ref=e27]
+        - paragraph [ref=e28]:
+          - text: This habit belongs to the
+          - link "Gym Challenge" [ref=e29] [cursor=pointer]:
+            - /url: gym-challenge.html
+          - text: .
+      - generic [ref=e30]:
+        - heading "Related Goal" [level=2] [ref=e31]
+        - paragraph [ref=e32]:
+          - text: This habit has the goal
+          - 'link "Weekly Goal: Gym 5 Times" [ref=e33] [cursor=pointer]':
+            - /url: gym-goal.html
+          - text: .

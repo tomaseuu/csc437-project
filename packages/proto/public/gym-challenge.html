@@ -34,37 +34,40 @@
     </header>
 
     <main class="page-grid">
-      <article class="content-grid grid-span-12">
-        <section class="content-card grid-span-4">
-          <h2>Challenge Details</h2>
-          <p><strong>Duration:</strong> 30 days</p>
-          <p><strong>Status:</strong> Active</p>
-          <p>
-            <strong>Reward:</strong> The loser buys the winner a PopMart figure.
-          </p>
-        </section>
-
-        <section class="content-card grid-span-4">
-          <h2>Participants</h2>
-          <ul class="sequence-list">
-            <li class="sequence-item">
-              User A with the habit
-              <a href="gym-habit.html">Gym 5 Times Per Week</a>
-            </li>
-            <li class="sequence-item">
-              User B with a goal of going to the gym 3 times per week
-            </li>
-          </ul>
-        </section>
-
-        <section class="content-card grid-span-4">
-          <h2>How Scoring Works</h2>
-          <p>
-            Each participant logs activity during the week. If they meet their
-            personal weekly goal, they earn 1 point for that week.
-          </p>
-        </section>
-      </article>
+      <challenge-overview>
+        <span slot="duration">30 days</span>
+        <span slot="status">Active</span>
+        <span slot="stake">
+          Reward: The loser buys the winner a PopMart figure.
+        </span>
+        <span slot="participant-one">
+          User A with the habit
+          <a href="gym-habit.html">Gym 5 Times Per Week</a>
+        </span>
+        <span slot="participant-two">
+          User B with a goal of going to the gym 3 times per week
+        </span>
+        <span slot="scoring">
+          Each participant logs activity during the week. If they meet their
+          personal weekly goal, they earn 1 point for that week.
+        </span>
+      </challenge-overview>
     </main>
+    <script type="importmap">
+      {
+        "imports": {
+          "@unbndl/html": "https://unpkg.com/@unbndl/html"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import { define } from "@unbndl/html";
+      import { ChallengeOverviewElement } from "/js/challenge-overview.js";
+
+      define({
+        "challenge-overview": ChallengeOverviewElement
+      });
+    </script>
   </body>
 </html>

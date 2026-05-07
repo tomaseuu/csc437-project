@@ -1,0 +1,15 @@
+{
+  "duration": "30 days",
+  "status": "Active",
+  "stake": "Reward: The loser buys the winner a PopMart figure.",
+  "participantOne": {
+    "name": "User A",
+    "goal": "Gym 5 Times Per Week",
+    "href": "gym-habit.html"
+  },
+  "participantTwo": {
+    "name": "User B",
+    "goal": "Going to the gym 3 times per week"
+  },
+  "scoring": "Each participant logs activity during the week. If they meet their personal weekly goal, they earn 1 point for that week."
+}

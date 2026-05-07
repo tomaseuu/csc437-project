@@ -37,21 +37,9 @@
     </header>
 
     <main class="page-grid">
-      <challenge-overview>
-        <span slot="duration">4 weeks</span>
-        <span slot="status">Active</span>
-        <span slot="stake">Punishment: The loser gets pied by the winner.</span>
-        <span slot="participant-one">
-          User A with a goal of meditating daily
-        </span>
-        <span slot="participant-two">
-          User B with a goal of journaling daily
-        </span>
-        <span slot="scoring">
-          Both users log once per day. At the end of each week, they either
-          pass or fail their goal for that week.
-        </span>
-      </challenge-overview>
+      <challenge-overview-loader
+        src="/data/mindfulness-challenge.json"
+      ></challenge-overview-loader>
     </main>
     <script type="importmap">
       {
@@ -64,6 +52,7 @@
     <script type="module">
       import { define } from "@unbndl/html";
       import { ChallengeOverviewElement } from "/js/challenge-overview.js";
+      import "/js/challenge-overview-loader.js?v=2";
 
       define({
         "challenge-overview": ChallengeOverviewElement

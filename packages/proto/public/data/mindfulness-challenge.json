@@ -1,0 +1,15 @@
+{
+  "duration": "4 weeks",
+  "status": "Active",
+  "stake": "Punishment: The loser gets pied by the winner.",
+  "participantOne": {
+    "name": "User A",
+    "goal": "Meditating daily",
+    "href": ""
+  },
+  "participantTwo": {
+    "name": "User B",
+    "goal": "Journaling daily"
+  },
+  "scoring": "Both users log once per day. At the end of each week, they either pass or fail their goal for that week."
+}

@@ -34,24 +34,9 @@
     </header>
 
     <main class="page-grid">
-      <challenge-overview>
-        <span slot="duration">30 days</span>
-        <span slot="status">Active</span>
-        <span slot="stake">
-          Reward: The loser buys the winner a PopMart figure.
-        </span>
-        <span slot="participant-one">
-          User A with the habit
-          <a href="gym-habit.html">Gym 5 Times Per Week</a>
-        </span>
-        <span slot="participant-two">
-          User B with a goal of going to the gym 3 times per week
-        </span>
-        <span slot="scoring">
-          Each participant logs activity during the week. If they meet their
-          personal weekly goal, they earn 1 point for that week.
-        </span>
-      </challenge-overview>
+      <challenge-overview-loader
+        src="/data/gym-challenge.json"
+      ></challenge-overview-loader>
     </main>
     <script type="importmap">
       {
@@ -64,6 +49,7 @@
     <script type="module">
       import { define } from "@unbndl/html";
       import { ChallengeOverviewElement } from "/js/challenge-overview.js";
+      import "/js/challenge-overview-loader.js?v=2";
 
       define({
         "challenge-overview": ChallengeOverviewElement

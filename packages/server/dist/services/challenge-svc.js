@@ -1,20 +1,18 @@
-const challenges = {
-    gym: {
-        id: "gym",
-        title: "Gym Challenge",
-        description: "A challenge page for gym activities.",
-        image: "/images/gym.jpg",
-        link: "/gym-challenge.html"
-    },
-    mindfulness: {
-        id: "mindfulness",
-        title: "Mindfulness Challenge",
-        description: "A challenge page for mindfulness activities.",
-        image: "/images/mindfulness.jpg",
-        link: "/mindfulness-challenge.html"
-    }
-};
-function get(id) {
-    return challenges[id];
+import { Schema, model } from "mongoose";
+const challengeSchema = new Schema({
+    id: String,
+    title: String,
+    description: String,
+    image: String,
+    link: String
+}, { collection: "challenges" });
+const ChallengeModel = model("Challenge", challengeSchema);
+function index() {
+    return ChallengeModel.find().exec();
 }
-export default { get };
+function get(id) {
+    return ChallengeModel.findOne({ id })
+        .exec()
+        .then((challenge) => challenge ?? undefined);
+}
+export default { index, get };

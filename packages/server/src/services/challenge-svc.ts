@@ -1,24 +1,27 @@
+import { Schema, model } from "mongoose";
 import { Challenge } from "../models/index.ts";
 
-const challenges: { [key: string]: Challenge } = {
-  gym: {
-    id: "gym",
-    title: "Gym Challenge",
-    description: "A challenge page for gym activities.",
-    image: "/images/gym.jpg",
-    link: "/gym-challenge.html"
+const challengeSchema = new Schema<Challenge>(
+  {
+    id: String,
+    title: String,
+    description: String,
+    image: String,
+    link: String
   },
-  mindfulness: {
-    id: "mindfulness",
-    title: "Mindfulness Challenge",
-    description: "A challenge page for mindfulness activities.",
-    image: "/images/mindfulness.jpg",
-    link: "/mindfulness-challenge.html"
-  }
-};
+  { collection: "challenges" }
+);
 
-function get(id: string): Challenge | undefined {
-  return challenges[id];
+const ChallengeModel = model<Challenge>("Challenge", challengeSchema);
+
+function index(): Promise<Challenge[]> {
+  return ChallengeModel.find().exec();
 }
 
-export default { get };
+function get(id: string): Promise<Challenge | undefined> {
+  return ChallengeModel.findOne({ id })
+    .exec()
+    .then((challenge) => challenge ?? undefined);
+}
+
+export default { index, get };

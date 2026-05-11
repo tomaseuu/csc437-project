@@ -1,22 +1,15 @@
 import express from "express";
-import Challenges from "./services/challenge-svc.js";
+import { connect } from "./services/mongo.js";
+import challengesRouter from "./routes/challenges.js";
 const app = express();
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
+connect("habitchallenge");
 app.use(express.static(staticDir));
 app.use(express.json());
+app.use("/api/challenges", challengesRouter);
 app.get("/hello", (req, res) => {
     res.send("Hello, World");
-});
-app.get("/api/challenges/:id", (req, res) => {
-    const id = req.params.id;
-    const data = Challenges.get(id);
-    if (data) {
-        res.send(data);
-    }
-    else {
-        res.status(404).send();
-    }
 });
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

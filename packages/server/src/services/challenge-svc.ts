@@ -24,4 +24,30 @@ function get(id: string): Promise<Challenge | undefined> {
     .then((challenge) => challenge ?? undefined);
 }
 
-export default { index, get };
+function create(json: Challenge): Promise<Challenge> {
+  const challenge = new ChallengeModel(json);
+  return challenge.save();
+}
+
+function update(id: string, challenge: Challenge): Promise<Challenge> {
+  return ChallengeModel.findOneAndUpdate(
+    { id },
+    challenge,
+    { new: true }
+  )
+    .exec()
+    .then((updated) => {
+      if (!updated) throw new Error(`${id} not updated`);
+      return updated as Challenge;
+    });
+}
+
+function remove(id: string): Promise<void> {
+  return ChallengeModel.findOneAndDelete({ id })
+    .exec()
+    .then((deleted) => {
+      if (!deleted) throw new Error(`${id} not deleted`);
+    });
+}
+
+export default { index, get, create, update, remove };

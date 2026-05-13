@@ -15,4 +15,25 @@ function get(id) {
         .exec()
         .then((challenge) => challenge ?? undefined);
 }
-export default { index, get };
+function create(json) {
+    const challenge = new ChallengeModel(json);
+    return challenge.save();
+}
+function update(id, challenge) {
+    return ChallengeModel.findOneAndUpdate({ id }, challenge, { new: true })
+        .exec()
+        .then((updated) => {
+        if (!updated)
+            throw new Error(`${id} not updated`);
+        return updated;
+    });
+}
+function remove(id) {
+    return ChallengeModel.findOneAndDelete({ id })
+        .exec()
+        .then((deleted) => {
+        if (!deleted)
+            throw new Error(`${id} not deleted`);
+    });
+}
+export default { index, get, create, update, remove };

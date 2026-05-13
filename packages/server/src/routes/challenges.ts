@@ -10,6 +10,31 @@ router.get("/", (_req: Request, res: Response) => {
     .catch((err) => res.status(500).send(err));
 });
 
+router.post("/", (req: Request, res: Response) => {
+  const newChallenge = req.body as Challenge;
+
+  Challenges.create(newChallenge)
+    .then((challenge: Challenge) => res.status(201).json(challenge))
+    .catch((err) => res.status(500).send(err));
+});
+
+router.put("/:id", (req: Request, res: Response) => {
+  const id = req.params.id as string;
+  const newChallenge = req.body as Challenge;
+
+  Challenges.update(id, newChallenge)
+    .then((challenge: Challenge) => res.json(challenge))
+    .catch(() => res.status(404).end());
+});
+
+router.delete("/:id", (req: Request, res: Response) => {
+  const id = req.params.id as string;
+
+  Challenges.remove(id)
+    .then(() => res.status(204).end())
+    .catch((err) => res.status(404).send(err));
+});
+
 router.get("/:id", (req: Request, res: Response) => {
   const id = req.params.id as string;
 

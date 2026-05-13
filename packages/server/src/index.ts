@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { connect } from "./services/mongo.ts";
+import auth, { authenticateUser } from "./routes/auth.ts";
 import challengesRouter from "./routes/challenges.ts";
 
 const app = express();
@@ -10,7 +11,8 @@ connect("habitchallenge");
 
 app.use(express.static(staticDir));
 app.use(express.json());
-app.use("/api/challenges", challengesRouter);
+app.use("/auth", auth);
+app.use("/api/challenges", authenticateUser, challengesRouter);
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World");

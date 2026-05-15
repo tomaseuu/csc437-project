@@ -11,48 +11,53 @@
     <link rel="stylesheet" href="/styles/cards.css" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="header-title">
-        <a class="app-name" href="index.html">Habit Challenges</a>
-        <div class="header-copy">
-          <p class="header-kicker">Challenge</p>
-          <h1>Gym Showdown Challenge</h1>
-          <p>A 30-day habit challenge between two friends focused on gym goals.</p>
+    <auth-provider>
+      <header class="site-header">
+        <div class="header-title">
+          <a class="app-name" href="index.html">Habit Challenges</a>
+          <div class="header-copy">
+            <p class="header-kicker">Challenge</p>
+            <h1>Gym Showdown Challenge</h1>
+            <p>A 30-day habit challenge between two friends focused on gym goals.</p>
+          </div>
         </div>
-      </div>
 
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a href="index.html">Challenges</a>
-        <a href="gym-challenge.html" aria-current="page">Gym</a>
-        <a href="mindfulness-challenge.html">Mindfulness</a>
-      </nav>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="index.html">Challenges</a>
+          <a href="gym-challenge.html" aria-current="page">Gym</a>
+          <a href="mindfulness-challenge.html">Mindfulness</a>
+        </nav>
 
-      <div class="user-profile" aria-label="Current user">
-        <span class="user-avatar" aria-hidden="true">T</span>
-        <span>Thomas</span>
-      </div>
-    </header>
+        <header-auth class="user-profile" aria-label="Current user"></header-auth>
+      </header>
 
-    <main class="page-grid">
-      <challenge-overview-loader
-        src="/data/gym-challenge.json"
-      ></challenge-overview-loader>
-    </main>
+      <main class="page-grid">
+        <challenge-overview-loader
+          src="/data/gym-challenge.json"
+        ></challenge-overview-loader>
+      </main>
+    </auth-provider>
     <script type="importmap">
       {
         "imports": {
-          "@unbndl/html": "https://unpkg.com/@unbndl/html"
+          "@unbndl/auth": "https://unpkg.com/@unbndl/auth",
+          "@unbndl/html": "https://unpkg.com/@unbndl/html",
+          "@unbndl/view": "https://unpkg.com/@unbndl/view"
         }
       }
     </script>
 
     <script type="module">
       import { define } from "@unbndl/html";
+      import { Auth } from "@unbndl/auth";
       import { ChallengeOverviewElement } from "/js/challenge-overview.js";
+      import { HeaderElement } from "/js/header.js";
       import "/js/challenge-overview-loader.js?v=2";
 
       define({
-        "challenge-overview": ChallengeOverviewElement
+        "auth-provider": Auth.Provider,
+        "challenge-overview": ChallengeOverviewElement,
+        "header-auth": HeaderElement
       });
     </script>
   </body>

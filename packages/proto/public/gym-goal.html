@@ -11,47 +11,65 @@
     <link rel="stylesheet" href="/styles/cards.css" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="header-title">
-        <a class="app-name" href="index.html">Habit Challenges</a>
-        <div class="header-copy">
-          <p class="header-kicker">Goal</p>
-          <h1>Weekly Goal: Gym 5 Times</h1>
-          <p>A goal connected to the Gym 5 Times Per Week habit.</p>
+    <auth-provider>
+      <header class="site-header">
+        <div class="header-title">
+          <a class="app-name" href="index.html">Habit Challenges</a>
+          <div class="header-copy">
+            <p class="header-kicker">Goal</p>
+            <h1>Weekly Goal: Gym 5 Times</h1>
+            <p>A goal connected to the Gym 5 Times Per Week habit.</p>
+          </div>
         </div>
-      </div>
 
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a href="index.html">Challenges</a>
-        <a href="gym-challenge.html">Gym</a>
-        <a href="mindfulness-challenge.html">Mindfulness</a>
-      </nav>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="index.html">Challenges</a>
+          <a href="gym-challenge.html">Gym</a>
+          <a href="mindfulness-challenge.html">Mindfulness</a>
+        </nav>
 
-      <div class="user-profile" aria-label="Current user">
-        <span class="user-avatar" aria-hidden="true">T</span>
-        <span>Thomas</span>
-      </div>
-    </header>
+        <header-auth class="user-profile" aria-label="Current user"></header-auth>
+      </header>
 
-    <main class="page-grid">
-      <article class="content-grid grid-span-12">
-        <section class="content-card grid-span-6">
-          <h2>Goal Details</h2>
-          <p><strong>Target:</strong> Complete 5 gym visits in one week</p>
-          <p>
-            <strong>Evaluation:</strong> Pass if 5 or more visits are logged
-          </p>
-          <p><strong>Reward in challenge:</strong> Earn 1 point for the week</p>
-        </section>
+      <main class="page-grid">
+        <article class="content-grid grid-span-12">
+          <section class="content-card grid-span-6">
+            <h2>Goal Details</h2>
+            <p><strong>Target:</strong> Complete 5 gym visits in one week</p>
+            <p>
+              <strong>Evaluation:</strong> Pass if 5 or more visits are logged
+            </p>
+            <p><strong>Reward in challenge:</strong> Earn 1 point for the week</p>
+          </section>
 
-        <section class="content-card grid-span-6">
-          <h2>Related Habit</h2>
-          <p>
-            This goal belongs to the
-            <a href="gym-habit.html">Gym 5 Times Per Week</a> habit.
-          </p>
-        </section>
-      </article>
-    </main>
+          <section class="content-card grid-span-6">
+            <h2>Related Habit</h2>
+            <p>
+              This goal belongs to the
+              <a href="gym-habit.html">Gym 5 Times Per Week</a> habit.
+            </p>
+          </section>
+        </article>
+      </main>
+    </auth-provider>
+    <script type="importmap">
+      {
+        "imports": {
+          "@unbndl/auth": "https://unpkg.com/@unbndl/auth",
+          "@unbndl/html": "https://unpkg.com/@unbndl/html",
+          "@unbndl/view": "https://unpkg.com/@unbndl/view"
+        }
+      }
+    </script>
+    <script type="module">
+      import { define } from "@unbndl/html";
+      import { Auth } from "@unbndl/auth";
+      import { HeaderElement } from "/js/header.js";
+
+      define({
+        "auth-provider": Auth.Provider,
+        "header-auth": HeaderElement
+      });
+    </script>
   </body>
 </html>

@@ -1,4 +1,6 @@
 import { html, css, shadow } from "@unbndl/html";
+import { fromAuth } from "@unbndl/auth";
+import { createViewModel, fromAttributes } from "@unbndl/view";
 import reset from "./styles/reset.css.js";
 
 function renderParticipantOne(participantOne = {}) {
@@ -19,38 +21,95 @@ function renderParticipantTwo(participantTwo = {}) {
 }
 
 export class ChallengeOverviewLoaderElement extends HTMLElement {
+  viewModel = createViewModel({
+    authenticated: false,
+    src: "",
+    token: undefined
+  })
+    .with(fromAttributes(this), "src")
+    .with(fromAuth(this), "authenticated", "token");
+
+  lastLoadedSrc = "";
+
   constructor() {
     super();
     shadow(this).styles(
       reset.styles,
       ChallengeOverviewLoaderElement.styles
     );
+
+    this.viewModel.createEffect(($) => {
+      if (!$.src) return;
+      this.loadSrc($.src);
+    });
   }
 
-  static observedAttributes = ["src"];
+  static get observedAttributes() {
+    return ["src"];
+  }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === "src" && newValue && newValue !== oldValue) {
-      this.hydrate(newValue).then((data) => {
-        if (!data) return;
+  connectedCallback() {
+    const src = this.getAttribute("src");
 
-        const view = ChallengeOverviewLoaderElement.render(data);
-        shadow(this).replace(view);
-        shadow(this).styles(
-          reset.styles,
-          ChallengeOverviewLoaderElement.styles
-        );
-      });
+    if (src) {
+      this.viewModel.set("src", src);
     }
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "src" && newValue && newValue !== oldValue) {
+      this.viewModel.set("src", newValue);
+      this.loadSrc(newValue);
+    }
+  }
+
+  get authorization() {
+    const $ = this.viewModel.toObject();
+
+    if ($.authenticated) {
+      return { Authorization: `Bearer ${$.token}` };
+    }
+
+    return {};
+  }
+
+  isProtectedApi(src) {
+    return src.startsWith("/api/");
+  }
+
+  loadSrc(src) {
+    const $ = this.viewModel.toObject();
+
+    if (!src) return;
+    if (src === this.lastLoadedSrc) return;
+    if (this.isProtectedApi(src) && (!$.authenticated || !$.token)) return;
+
+    this.lastLoadedSrc = src;
+
+    this.hydrate(src).then((data) => {
+      if (!data) return;
+
+      const view = ChallengeOverviewLoaderElement.render(data);
+      shadow(this).replace(view);
+      shadow(this).styles(
+        reset.styles,
+        ChallengeOverviewLoaderElement.styles
+      );
+    });
+  }
+
   hydrate(src) {
-    return fetch(src)
+    const options = this.isProtectedApi(src)
+      ? { headers: this.authorization }
+      : {};
+
+    return fetch(src, options)
       .then((response) => {
         if (response.status !== 200) throw `HTTP Status ${response.status}`;
         return response.json();
       })
       .catch((error) => {
+        this.lastLoadedSrc = "";
         console.log(`Could not fetch ${src}:`, error);
       });
   }

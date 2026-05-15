@@ -17,66 +17,84 @@
     <link rel="stylesheet" href="/styles/cards.css" />
   </head>
   <body>
-    <header class="site-header">
-      <label onchange="handleDarkToggle(event)">
-        <input type="checkbox" autocomplete="off" id="darkToggle" />
-        Dark mode
-      </label>
-      <div class="header-title">
-        <a class="app-name" href="index.html">Habit Challenges</a>
-        <div class="header-copy">
-          <p class="header-kicker">Dashboard</p>
-          <h1>Active Challenges</h1>
-          <p>
-            A simple collection of friend-based habit challenges where each
-            person tracks their own goal and competes on consistency!
-          </p>
+    <auth-provider>
+      <header class="site-header">
+        <label onchange="handleDarkToggle(event)">
+          <input type="checkbox" autocomplete="off" id="darkToggle" />
+          Dark mode
+        </label>
+        <div class="header-title">
+          <a class="app-name" href="index.html">Habit Challenges</a>
+          <div class="header-copy">
+            <p class="header-kicker">Dashboard</p>
+            <h1>Active Challenges</h1>
+            <p>
+              A simple collection of friend-based habit challenges where each
+              person tracks their own goal and competes on consistency!
+            </p>
+          </div>
         </div>
-      </div>
 
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a href="index.html" aria-current="page">Challenges</a>
-        <a href="gym-challenge.html">Gym</a>
-        <a href="mindfulness-challenge.html">Mindfulness</a>
-      </nav>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="index.html" aria-current="page">Challenges</a>
+          <a href="gym-challenge.html">Gym</a>
+          <a href="mindfulness-challenge.html">Mindfulness</a>
+        </nav>
 
-      <div class="user-profile" aria-label="Current user">
-        <span class="user-avatar" aria-hidden="true">T</span>
-        <span>Thomas</span>
-      </div>
-    </header>
+        <header-auth class="user-profile" aria-label="Current user"></header-auth>
+      </header>
 
-    <main class="page-grid">
-      <section class="content-card grid-span-8">
-        <h2>Challenge List</h2>
-        <ul class="sequence-list">
-          <li class="sequence-item">
-            <a href="gym-challenge.html">
-              <svg class="icon">
-                <use href="/icons/challenges.svg#icon-dumbbell" />
-              </svg>
-              Gym Habit Challenge
-            </a>
-          </li>
-          <li class="sequence-item">
-            <a href="mindfulness-challenge.html">
-              <svg class="icon">
-                <use href="/icons/challenges.svg#icon-meditation" />
-              </svg>
-              Mindfulness Challenge
-            </a>
-          </li>
-        </ul>
-      </section>
+      <main class="page-grid">
+        <section class="content-card grid-span-8">
+          <h2>Challenge List</h2>
+          <ul class="sequence-list">
+            <li class="sequence-item">
+              <a href="gym-challenge.html">
+                <svg class="icon">
+                  <use href="/icons/challenges.svg#icon-dumbbell" />
+                </svg>
+                Gym Habit Challenge
+              </a>
+            </li>
+            <li class="sequence-item">
+              <a href="mindfulness-challenge.html">
+                <svg class="icon">
+                  <use href="/icons/challenges.svg#icon-meditation" />
+                </svg>
+                Mindfulness Challenge
+              </a>
+            </li>
+          </ul>
+        </section>
 
-      <section class="content-card grid-span-4">
-        <h2>About This Project</h2>
-        <p>
-          Users join challenges with friends, set personal habit goals, log
-          progress, and earn points for completing successful weeks.
-        </p>
-      </section>
-    </main>
+        <section class="content-card grid-span-4">
+          <h2>About This Project</h2>
+          <p>
+            Users join challenges with friends, set personal habit goals, log
+            progress, and earn points for completing successful weeks.
+          </p>
+        </section>
+      </main>
+    </auth-provider>
+    <script type="importmap">
+      {
+        "imports": {
+          "@unbndl/auth": "https://unpkg.com/@unbndl/auth",
+          "@unbndl/html": "https://unpkg.com/@unbndl/html",
+          "@unbndl/view": "https://unpkg.com/@unbndl/view"
+        }
+      }
+    </script>
+    <script type="module">
+      import { define } from "@unbndl/html";
+      import { Auth } from "@unbndl/auth";
+      import { HeaderElement } from "/js/header.js";
+
+      define({
+        "auth-provider": Auth.Provider,
+        "header-auth": HeaderElement
+      });
+    </script>
     <script>
       function handleDarkToggle(event) {
         event.stopPropagation();

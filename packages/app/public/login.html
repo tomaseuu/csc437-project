@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&family=Roboto+Slab:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="stylesheet" href="/styles/cards.css" />
+    <style>
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: var(--space-xl);
+      }
+
+      main {
+        width: min(100%, 30rem);
+        margin: 0;
+        padding: 0;
+      }
+
+      .content-card {
+        gap: var(--space-md);
+      }
+
+      form {
+        display: grid;
+        gap: var(--space-md);
+      }
+
+      label {
+        display: grid;
+        gap: var(--space-2xs);
+      }
+
+      input {
+        width: 100%;
+        padding: var(--space-sm);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        font: inherit;
+      }
+
+      button {
+        border: 0;
+        border-radius: 999px;
+        padding: 0.75rem 1rem;
+        background: var(--color-primary);
+        color: var(--color-text);
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      h1,
+      p {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="content-card">
+      <h1>User Login</h1>
+      <form id="loginForm">
+        <label>
+          <span>Username</span>
+          <input name="username" autocomplete="off" />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" name="password" />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+      <p id="status"></p>
+    </main>
+    <script type="module">
+      const TOKEN_KEY = "un-auth:token";
+      const form = document.getElementById("loginForm");
+      const status = document.getElementById("status");
+      const next =
+        new URLSearchParams(window.location.search).get("next") || "/app";
+
+      form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const body = JSON.stringify({
+          username: formData.get("username"),
+          password: formData.get("password")
+        });
+
+        status.textContent = "Signing in...";
+
+        try {
+          const response = await fetch("/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const { token } = await response.json();
+
+          localStorage.setItem(TOKEN_KEY, token);
+          window.location.assign(next);
+        } catch (error) {
+          status.textContent = `Login failed: ${String(error)}`;
+        }
+      });
+    </script>
+  </body>
+</html>

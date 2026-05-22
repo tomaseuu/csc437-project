@@ -1,0 +1,85 @@
+body {
+  background-color: var(--color-background-page);
+  color: var(--color-text);
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+header {
+  background-color: var(--color-background-header);
+  color: var(--color-text);
+  padding: 1.5rem 1rem;
+}
+
+header a {
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-link);
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.15em;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-primary);
+  font-family: "Roboto Slab", Georgia, serif;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+header h1,
+header h2,
+header h3 {
+  color: var(--color-text);
+}
+
+main {
+  padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+nav {
+  margin-bottom: 1rem;
+}
+
+ul {
+  padding-left: 1.5rem;
+}
+
+li + li {
+  margin-top: 0.5rem;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 700;
+}
+
+svg.icon {
+  display: inline;
+  height: 2em;
+  width: 2em;
+  vertical-align: top;
+  fill: currentColor;
+}

@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "check": "tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@unbndl/auth": "^1.0.7",
+    "@unbndl/html": "^1.0.7",
+    "@unbndl/switch": "^1.0.7",
+    "@unbndl/view": "^1.0.7"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vite": "^8.0.14"
+  }
+}

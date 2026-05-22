@@ -1,0 +1,18 @@
+.content-card {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-background-surface);
+}
+
+.content-card h2 {
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.content-card p,
+.content-card li {
+  max-width: 60ch;
+}

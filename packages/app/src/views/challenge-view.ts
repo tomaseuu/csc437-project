@@ -1,10 +1,10 @@
 import { fromAuth } from "@unbndl/auth";
 import { createViewModel } from "@unbndl/view";
+import { Challenge } from "server/models";
 import {
-  Challenge,
   escapeHtml,
   getChallengeDetails,
-  getChallengeImageSrc
+  getChallengeImageSrc,
 } from "../challenge-meta";
 
 interface ChallengeState {
@@ -25,7 +25,7 @@ export class ChallengeViewElement extends HTMLElement {
     challengeId: "",
     loading: false,
     error: undefined,
-    challenge: undefined
+    challenge: undefined,
   }).with(fromAuth(this), "authenticated", "token");
 
   loadedKey?: string;
@@ -48,24 +48,21 @@ export class ChallengeViewElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.viewModel.set(
-      "challengeId",
-      this.getAttribute("challenge-id") || ""
-    );
+    this.viewModel.set("challengeId", this.getAttribute("challenge-id") || "");
     this.render(this.viewModel.toObject());
   }
 
   attributeChangedCallback(
     name: string,
     _oldValue: string | null,
-    newValue: string | null
+    newValue: string | null,
   ) {
     if (name === "challenge-id") {
       this.loadedKey = undefined;
       this.viewModel.update({
         challengeId: newValue || "",
         challenge: undefined,
-        error: undefined
+        error: undefined,
       });
     }
   }
@@ -74,15 +71,18 @@ export class ChallengeViewElement extends HTMLElement {
     this.loadedKey = `${token}:${id}`;
     this.viewModel.update({
       loading: true,
-      error: undefined
+      error: undefined,
     });
 
     try {
-      const response = await fetch(`/api/challenges/${encodeURIComponent(id)}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const response = await fetch(
+        `/api/challenges/${encodeURIComponent(id)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
@@ -92,13 +92,13 @@ export class ChallengeViewElement extends HTMLElement {
 
       this.viewModel.update({
         loading: false,
-        challenge
+        challenge,
       });
     } catch (error) {
       this.loadedKey = undefined;
       this.viewModel.update({
         loading: false,
-        error: `Could not load challenge: ${String(error)}`
+        error: `Could not load challenge: ${String(error)}`,
       });
     }
   }
@@ -183,7 +183,9 @@ export class ChallengeViewElement extends HTMLElement {
             ? `
               <section class="content-card grid-span-12">
                 <h2>Challenge Image</h2>
-                <img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(challenge.title)}" />
+                <img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(
+                  challenge.title,
+                )}" />
               </section>
             `
             : ""

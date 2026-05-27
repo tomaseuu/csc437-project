@@ -1,76 +1,33 @@
-import { fromAuth } from "@unbndl/auth";
 import { createViewModel } from "@unbndl/view";
-import {
-  Challenge,
-  escapeHtml,
-  getChallengeIconHref
-} from "../challenge-meta";
+import { Store, fromStore } from "@unbndl/store";
+import { Challenge } from "server/models";
+import { Model } from "../model";
+import { Msg } from "../messages";
+import { escapeHtml, getChallengeIconHref } from "../challenge-meta";
 
 interface HomeState {
-  authenticated: boolean;
-  token?: string;
-  loading: boolean;
-  error?: string;
-  challenges: Challenge[];
+  challenges?: Challenge[];
 }
 
 export class HomeViewElement extends HTMLElement {
-  viewModel = createViewModel<HomeState>({
-    authenticated: false,
-    token: undefined,
-    loading: false,
-    error: undefined,
-    challenges: []
-  }).with(fromAuth(this), "authenticated", "token");
-
-  loadedToken?: string;
+  viewModel = createViewModel<HomeState>({}).with(
+    fromStore<Model>(this),
+    "challenges",
+  );
 
   constructor() {
     super();
 
     this.viewModel.createEffect(($) => {
       this.render($);
-
-      if ($.authenticated && $.token && $.token !== this.loadedToken) {
-        this.loadChallenges($.token);
-      }
     });
   }
 
   connectedCallback() {
     this.render(this.viewModel.toObject());
-  }
 
-  async loadChallenges(token: string) {
-    this.loadedToken = token;
-    this.viewModel.update({
-      loading: true,
-      error: undefined
-    });
-
-    try {
-      const response = await fetch("/api/challenges", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const challenges = (await response.json()) as Challenge[];
-
-      this.viewModel.update({
-        loading: false,
-        challenges
-      });
-    } catch (error) {
-      this.loadedToken = undefined;
-      this.viewModel.update({
-        loading: false,
-        error: `Could not load challenges: ${String(error)}`
-      });
+    if (this.viewModel.$.challenges === undefined) {
+      Store.dispatch(this, ["challenges/request", {}] as Msg);
     }
   }
 
@@ -98,12 +55,8 @@ export class HomeViewElement extends HTMLElement {
   }
 
   renderChallengeList(state: HomeState): string {
-    if (state.loading) {
+    if (state.challenges === undefined) {
       return "<p>Loading challenges...</p>";
-    }
-
-    if (state.error) {
-      return `<p>${escapeHtml(state.error)}</p>`;
     }
 
     if (!state.challenges.length) {

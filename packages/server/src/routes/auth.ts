@@ -28,13 +28,19 @@ export interface AuthenticatedRequest extends Request {
 }
 
 router.post("/register", (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { email, username, password } = req.body;
 
-  if (typeof username !== "string" || typeof password !== "string") {
+  if (
+    typeof email !== "string" ||
+    typeof username !== "string" ||
+    typeof password !== "string"
+  ) {
+    res.status(400).send("Bad request: Invalid input data.");
+  } else if (!email.trim() || !username.trim() || !password.trim()) {
     res.status(400).send("Bad request: Invalid input data.");
   } else {
     credentials
-      .create(username, password)
+      .create(email, username, password)
       .then((creds) => generateAccessToken(creds.username))
       .then((token) => {
         res.status(201).send({ token: token });

@@ -5,6 +5,12 @@ import { Credential } from "../models/index.ts";
 
 const credentialSchema = new Schema<Credential>(
   {
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true
+    },
     username: {
       type: String,
       required: true,
@@ -20,18 +26,34 @@ const credentialSchema = new Schema<Credential>(
 
 const credentialModel = model<Credential>("Credential", credentialSchema);
 
-function create(username: string, password: string): Promise<Credential> {
+function create(
+  email: string,
+  username: string,
+  password: string
+): Promise<Credential> {
+  const normalizedEmail = email.trim().toLowerCase();
+  const normalizedUsername = username.trim();
+
   return credentialModel
-    .find({ username })
+    .find({
+      $or: [{ username: normalizedUsername }, { email: normalizedEmail }]
+    })
     .exec()
     .then((found: Credential[]) => {
-      if (found.length) throw new Error("Username exists");
+      if (found.some((cred) => cred.username === normalizedUsername)) {
+        throw new Error("Username exists");
+      }
+
+      if (found.some((cred) => cred.email === normalizedEmail)) {
+        throw new Error("Email exists");
+      }
     })
     .then(() => bcrypt.genSalt(10))
     .then((salt: string) => bcrypt.hash(password, salt))
     .then((hashedPassword: string) => {
       const creds = new credentialModel({
-        username,
+        email: normalizedEmail,
+        username: normalizedUsername,
         hashedPassword
       });
 
@@ -63,4 +85,11 @@ function verify(username: string, password: string): Promise<string> {
     );
 }
 
-export default { create, verify };
+function exists(username: string): Promise<boolean> {
+  return credentialModel
+    .findOne({ username: username.trim() })
+    .exec()
+    .then((found) => Boolean(found));
+}
+
+export default { create, verify, exists };

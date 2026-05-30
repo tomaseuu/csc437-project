@@ -1,12 +1,18 @@
 import { Challenge } from "../models/index.ts";
-declare function index(owner: string): Promise<Challenge[]>;
-declare function get(id: string, owner: string): Promise<Challenge | undefined>;
+declare function index(username: string): Promise<Challenge[]>;
+declare function get(id: string, username: string): Promise<Challenge | undefined>;
+declare function invites(username: string): Promise<Challenge[]>;
+declare function acceptInvite(id: string, username: string): Promise<Challenge>;
+declare function recordCheckIn(id: string, username: string, todayKey: string, totalDays: number): Promise<Challenge>;
 declare function create(json: Challenge): Promise<Challenge>;
 declare function update(id: string, challenge: Challenge): Promise<Challenge>;
 declare function remove(id: string, owner: string): Promise<void>;
 declare const _default: {
     index: typeof index;
     get: typeof get;
+    invites: typeof invites;
+    acceptInvite: typeof acceptInvite;
+    recordCheckIn: typeof recordCheckIn;
     create: typeof create;
     update: typeof update;
     remove: typeof remove;

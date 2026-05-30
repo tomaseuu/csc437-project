@@ -16,14 +16,10 @@ export function update(
 
   switch (type) {
     case "challenges/request":
-      if (model.challenges) {
-        return model;
-      }
-
       return [
         {
           ...model,
-          challenges: [],
+          challenges: model.challenges ?? [],
         },
         requestChallenges(user),
       ];

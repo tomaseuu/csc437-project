@@ -9,12 +9,12 @@ body {
 
 header {
   background-color: var(--color-background-header);
-  color: var(--color-text);
+  color: var(--color-background-header-text);
   padding: 1.5rem 1rem;
 }
 
 header a {
-  color: var(--color-text);
+  color: var(--color-background-header-text);
 }
 
 a {

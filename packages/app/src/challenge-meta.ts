@@ -3,13 +3,19 @@ export interface Challenge {
   owner?: string;
   title: string;
   description: string;
-  image?: string;
   link: string;
+  startedOn?: string;
   duration?: string;
   status?: string;
   stake?: string;
   participantOneGoal?: string;
   scoring?: string;
+  teammateUsername?: string;
+  teammateAccepted?: boolean;
+  ownerCompletedDays?: number;
+  ownerLastCompletedOn?: string;
+  teammateCompletedDays?: number;
+  teammateLastCompletedOn?: string;
 }
 
 interface Participant {
@@ -103,8 +109,10 @@ export function getChallengeDetails(
         goal: challenge.participantOneGoal || "Set a weekly goal"
       },
       participantTwo: {
-        name: "Coming Soon",
-        goal: "Invite another participant later"
+        name: challenge.teammateUsername || "Coming Soon",
+        goal: challenge.teammateAccepted
+          ? "Track your own daily check-ins."
+          : "Invite another participant later"
       },
       scoring:
         challenge.scoring ||
@@ -141,20 +149,6 @@ export function getChallengeIconHref(
   return details.iconId
     ? `/icons/challenges.svg#${details.iconId}`
     : undefined;
-}
-
-export function getChallengeImageSrc(
-  image: string | undefined
-): string | undefined {
-  if (!image) return undefined;
-  if (image.startsWith("http://") || image.startsWith("https://")) {
-    return image;
-  }
-  if (image.startsWith("/")) {
-    return image;
-  }
-
-  return `/images/${image}`;
 }
 
 export function escapeHtml(value: string | undefined): string {

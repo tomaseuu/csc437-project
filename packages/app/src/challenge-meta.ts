@@ -1,9 +1,15 @@
 export interface Challenge {
   id: string;
+  owner?: string;
   title: string;
   description: string;
   image?: string;
   link: string;
+  duration?: string;
+  status?: string;
+  stake?: string;
+  participantOneGoal?: string;
+  scoring?: string;
 }
 
 interface Participant {
@@ -81,6 +87,31 @@ export function inferChallengeSlug(
 export function getChallengeDetails(
   challenge: Partial<Challenge> | undefined
 ): ChallengeDetails {
+  if (
+    challenge?.duration ||
+    challenge?.status ||
+    challenge?.stake ||
+    challenge?.participantOneGoal ||
+    challenge?.scoring
+  ) {
+    return {
+      duration: challenge.duration || "Custom duration",
+      status: challenge.status || "Active",
+      stake: challenge.stake || "Friendly bragging rights.",
+      participantOne: {
+        name: challenge.owner || "You",
+        goal: challenge.participantOneGoal || "Set a weekly goal"
+      },
+      participantTwo: {
+        name: "Coming Soon",
+        goal: "Invite another participant later"
+      },
+      scoring:
+        challenge.scoring ||
+        "Participants earn a point when they complete their agreed-upon goal for the week."
+    };
+  }
+
   const slug = inferChallengeSlug(challenge);
 
   return (

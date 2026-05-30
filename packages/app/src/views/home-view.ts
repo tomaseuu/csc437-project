@@ -35,7 +35,15 @@ export class HomeViewElement extends HTMLElement {
     this.innerHTML = `
       <main class="page-grid">
         <section class="content-card grid-span-8">
-          <h2>Challenge List</h2>
+          <div class="section-heading">
+            <div>
+              <p class="header-kicker">Your Challenges</p>
+              <h2>Challenge List</h2>
+            </div>
+            <a class="primary-link" href="/app/create-challenge">
+              Create Challenge
+            </a>
+          </div>
           ${this.renderChallengeList(state)}
         </section>
 

@@ -1,17 +1,23 @@
 import { Schema, model } from "mongoose";
 const challengeSchema = new Schema({
     id: String,
+    owner: String,
     title: String,
     description: String,
     image: String,
-    link: String
+    link: String,
+    duration: String,
+    status: String,
+    stake: String,
+    participantOneGoal: String,
+    scoring: String
 }, { collection: "challenges" });
 const ChallengeModel = model("Challenge", challengeSchema);
-function index() {
-    return ChallengeModel.find().exec();
+function index(owner) {
+    return ChallengeModel.find({ owner }).exec();
 }
-function get(id) {
-    return ChallengeModel.findOne({ id })
+function get(id, owner) {
+    return ChallengeModel.findOne({ id, owner })
         .exec()
         .then((challenge) => challenge ?? undefined);
 }
@@ -20,7 +26,7 @@ function create(json) {
     return challenge.save();
 }
 function update(id, challenge) {
-    return ChallengeModel.findOneAndUpdate({ id }, challenge, { new: true })
+    return ChallengeModel.findOneAndUpdate({ id, owner: challenge.owner }, challenge, { new: true })
         .exec()
         .then((updated) => {
         if (!updated)
@@ -28,8 +34,8 @@ function update(id, challenge) {
         return updated;
     });
 }
-function remove(id) {
-    return ChallengeModel.findOneAndDelete({ id })
+function remove(id, owner) {
+    return ChallengeModel.findOneAndDelete({ id, owner })
         .exec()
         .then((deleted) => {
         if (!deleted)

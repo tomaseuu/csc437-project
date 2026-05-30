@@ -21,6 +21,12 @@ dotenv.config({
 
 const TOKEN_SECRET: string = process.env.TOKEN_SECRET || "NOT_A_SECRET";
 
+export interface AuthenticatedRequest extends Request {
+  user?: {
+    username: string;
+  };
+}
+
 router.post("/register", (req: Request, res: Response) => {
   const { username, password } = req.body;
 
@@ -80,8 +86,14 @@ export function authenticateUser(
     res.status(401).end();
   } else {
     jwt.verify(token, TOKEN_SECRET, (_error, decoded) => {
-      if (decoded) next();
-      else res.status(401).end();
+      if (decoded && typeof decoded === "object" && "username" in decoded) {
+        (req as AuthenticatedRequest).user = {
+          username: String(decoded.username)
+        };
+        next();
+      } else {
+        res.status(401).end();
+      }
     });
   }
 }

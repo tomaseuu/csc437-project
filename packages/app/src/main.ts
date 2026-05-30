@@ -5,6 +5,7 @@ import { BrowserHistory, Switch } from "@unbndl/switch";
 import { BlzHeaderElement } from "./components/blz-header";
 import { HomeViewElement } from "./views/home-view";
 import { ChallengeViewElement } from "./views/challenge-view";
+import { CreateChallengeViewElement } from "./views/create-challenge-view";
 import { Model, init } from "./model";
 import { Msg } from "./messages";
 import { update, Cmd } from "./update";
@@ -22,6 +23,11 @@ const routes: Switch.Route[] = [
         challenge-id=${(route) => route.params.id}
       ></challenge-view>
     `,
+  },
+  {
+    path: "/app/create-challenge",
+    auth: "protected",
+    view: html` <create-challenge-view></create-challenge-view> `,
   },
   {
     path: "/app",
@@ -50,4 +56,5 @@ define({
   "blz-header": BlzHeaderElement,
   "home-view": HomeViewElement,
   "challenge-view": ChallengeViewElement,
+  "create-challenge-view": CreateChallengeViewElement,
 });

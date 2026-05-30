@@ -1,7 +1,12 @@
 import { fromAuth } from "@unbndl/auth";
+import { Store, fromStore } from "@unbndl/store";
+import { BrowserHistory } from "@unbndl/switch";
 import { css, html, shadow } from "@unbndl/html";
 import { createViewModel } from "@unbndl/view";
+import { Challenge } from "server/models";
 import { escapeHtml } from "../challenge-meta";
+import { Model } from "../model";
+import { Msg } from "../messages";
 
 interface CreateChallengeState {
   authenticated: boolean;
@@ -13,7 +18,9 @@ interface CreateChallengeState {
   participantOneGoal: string;
   scoring: string;
   teammateUsername: string;
-  submitting: boolean;
+  creatingChallenge: boolean;
+  createdChallenge?: Challenge;
+  createChallengeError?: string;
   error?: string;
 }
 
@@ -97,11 +104,18 @@ export class CreateChallengeViewElement extends HTMLElement {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
+      align-items: start;
     }
 
     label {
-      display: grid;
+      display: flex;
+      flex-direction: column;
       gap: 0.35rem;
+      justify-content: flex-start;
+    }
+
+    .form-row > label {
+      align-self: start;
     }
 
     .field-label {
@@ -224,9 +238,20 @@ export class CreateChallengeViewElement extends HTMLElement {
     participantOneGoal: "",
     scoring: "",
     teammateUsername: "",
-    submitting: false,
+    creatingChallenge: false,
+    createdChallenge: undefined,
+    createChallengeError: undefined,
     error: undefined
-  }).with(fromAuth(this), "authenticated", "token");
+  })
+    .with(fromAuth(this), "authenticated", "token")
+    .with(
+      fromStore<Model>(this),
+      "creatingChallenge",
+      "createdChallenge",
+      "createChallengeError"
+    );
+
+  lastCreatedId?: string;
 
   view = html`
     <main>
@@ -335,14 +360,18 @@ export class CreateChallengeViewElement extends HTMLElement {
           </label>
 
           ${($: CreateChallengeState) =>
-            $.error
-              ? `<p class="form-status error-text">${escapeHtml($.error)}</p>`
+            $.error || $.createChallengeError
+              ? `<p class="form-status error-text">${escapeHtml(
+                  $.error || $.createChallengeError || ""
+                )}</p>`
               : ""}
 
           <div class="form-actions">
-            <button type="submit" ?disabled=${($: CreateChallengeState) => $.submitting}>
+            <button
+              type="submit"
+              ?disabled=${($: CreateChallengeState) => $.creatingChallenge}>
               ${($: CreateChallengeState) =>
-                $.submitting ? "Creating..." : "Create Challenge"}
+                $.creatingChallenge ? "Creating..." : "Create Challenge"}
             </button>
             <a href="/app">Cancel</a>
           </div>
@@ -361,12 +390,23 @@ export class CreateChallengeViewElement extends HTMLElement {
       });
 
     this.viewModel.createEffect(() => {
+      const state = this.viewModel.toObject();
       root.replace(this.viewModel.render(this.view));
       this.sanitizeRenderedFields();
+
+      const challenge = state.createdChallenge;
+      if (challenge?.id && challenge.id !== this.lastCreatedId) {
+        this.lastCreatedId = challenge.id;
+        Store.dispatch(this, ["challenge/create/reset", {}] as Msg);
+        BrowserHistory.dispatch(this, "history/navigate", {
+          href: challenge.link || `/app/challenges/${challenge.id}`,
+        });
+      }
     });
   }
 
   connectedCallback() {
+    Store.dispatch(this, ["challenge/create/reset", {}] as Msg);
     this.addEventListener("input", this.handleInput);
   }
 
@@ -423,7 +463,6 @@ export class CreateChallengeViewElement extends HTMLElement {
 
     if (!duration) {
       this.viewModel.update({
-        submitting: false,
         error: "Duration must be a number of days."
       });
       return;
@@ -439,45 +478,23 @@ export class CreateChallengeViewElement extends HTMLElement {
       participantOneGoal,
       scoring,
       teammateUsername,
-      submitting: true,
       error: undefined
     });
 
-    try {
-      const response = await fetch("/api/challenges", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
+    Store.dispatch(this, [
+      "challenge/create",
+      {
+        challenge: {
           title,
           description,
           duration: normalizedDuration,
           stake,
           participantOneGoal,
           scoring,
-          teammateUsername
-        })
-      });
-
-      if (!response.ok) {
-        const payload = await response.json().catch(() => undefined);
-        const message =
-          payload && typeof payload === "object" && "error" in payload
-            ? String((payload as { error: string }).error)
-            : `HTTP ${response.status}`;
-        throw new Error(message);
-      }
-
-      const challenge = await response.json();
-      window.location.assign(challenge.link || `/app/challenges/${challenge.id}`);
-    } catch (error) {
-      this.viewModel.update({
-        submitting: false,
-        error: `Could not create challenge: ${String(error)}`
-      });
-    }
+          teammateUsername: teammateUsername || undefined,
+        },
+      },
+    ] as Msg);
   };
 
   sanitizeRenderedFields() {

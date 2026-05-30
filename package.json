@@ -15,6 +15,10 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "build": "npm run -w app build && npm run -w server build",
+    "check": "npm run -w app check && npm run -w server check",
+    "dev": "npm run -w server dev",
+    "start": "npm run build && node packages/server/dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [

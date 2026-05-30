@@ -1,4 +1,6 @@
+import { existsSync } from "fs";
 import { readFile } from "fs/promises";
+import { fileURLToPath } from "url";
 import path from "path";
 import express from "express";
 import { connect } from "./services/mongo.js";
@@ -6,7 +8,7 @@ import auth, { authenticateUser } from "./routes/auth.js";
 import challengesRouter from "./routes/challenges.js";
 const app = express();
 const port = process.env.PORT || 3000;
-const staticDir = process.env.STATIC || "public";
+const staticDir = resolveStaticDir();
 const spaIndex = path.resolve(staticDir, "index.html");
 connect("habitchallenge");
 app.use(express.static(staticDir));
@@ -27,4 +29,16 @@ app.get(/^\/app(?:\/.*)?$/, async (_req, res) => {
 });
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
+    console.log(`Serving static files from ${staticDir}`);
 });
+function resolveStaticDir() {
+    if (process.env.STATIC) {
+        return process.env.STATIC;
+    }
+    const currentDir = path.dirname(fileURLToPath(import.meta.url));
+    const appDist = path.resolve(currentDir, "../../app/dist");
+    if (existsSync(appDist)) {
+        return appDist;
+    }
+    return "public";
+}

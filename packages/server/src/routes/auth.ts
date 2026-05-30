@@ -5,12 +5,19 @@ import express, {
   Response
 } from "express";
 import jwt from "jsonwebtoken";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import credentials from "../services/credential-svc.ts";
 
 const router = express.Router();
 
-dotenv.config();
+dotenv.config({
+  path: path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../.env"
+  )
+});
 
 const TOKEN_SECRET: string = process.env.TOKEN_SECRET || "NOT_A_SECRET";
 
